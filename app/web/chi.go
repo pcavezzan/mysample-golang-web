@@ -10,10 +10,10 @@ import (
 )
 
 func startChi(factory *app.AppFactory, config *app.Config) {
-	uh := api.UserHandler{UserService: factory.UserService()}
+	ph := api.ParkingHandler{ParkingService: factory.ParkingService()}
 
 	r := chi.NewRouter()
-	r.Get("/api/users", uh.Users)
+	r.Get("/api/parkings", ph.Users)
 
 	addr := fmt.Sprintf(":%d", config.Port)
 	log.Infof("Listening to %v", addr)

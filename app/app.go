@@ -10,19 +10,19 @@ type App interface {
 }
 
 type AppFactory struct {
-	userRepository repositories.UserRepository
-	userService services.UserService
+	userRepository *repositories.ParkingRepository
+	userService *services.ParkingService
 }
 
 func NewAppFactory(config *Config) *AppFactory {
-	userRepository := repositories.NewUserRepository()
-	userService := services.NewUserService(userRepository)
+	userRepository := repositories.NewParkingRepository()
+	userService := services.NewParkingService(userRepository)
 	return &AppFactory{
-		userRepository: userRepository,
-		userService: userService,
+		userRepository: &userRepository,
+		userService: &userService,
 	}
 }
 
-func (f *AppFactory) UserService() services.UserService {
+func (f *AppFactory) ParkingService() *services.ParkingService {
 	return f.userService
 }

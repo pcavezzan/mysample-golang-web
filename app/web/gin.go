@@ -11,9 +11,9 @@ import (
 func startGin(factory *app.AppFactory, config *app.Config) {
 	r := gin.Default()
 
-	ue := endpoints.User{factory.UserService()}
+	ue := endpoints.ParkingEndpoint{factory.ParkingService()}
 
-	r.GET("/api/users", ue.Users)
+	r.GET("/api/parkings", ue.Users)
 
 	addr := fmt.Sprintf(":%d", config.Port)
 	log.Infof("Listening to %v", addr)
