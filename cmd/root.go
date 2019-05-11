@@ -67,6 +67,12 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.sample.yaml)")
 
 	rootCmd.PersistentFlags().IntVar(&cfg.Port, "port", 8000, "server port to listen to.")
+
+	rootCmd.PersistentFlags().StringVar(&cfg.DataSource.User, "datasource.user", "postgres", "User to connect to database")
+	rootCmd.PersistentFlags().StringVar(&cfg.DataSource.Password, "datasource.password", "postgres", "User password to connect to database")
+	rootCmd.PersistentFlags().StringVar(&cfg.DataSource.Database, "datasource.database", "sample", "Database name to connect to database")
+	rootCmd.PersistentFlags().StringVar(&cfg.DataSource.Host, "datasource.host", "localhost", "Host to connect to database")
+	rootCmd.PersistentFlags().IntVar(&cfg.DataSource.Port, "datasource.port", 5432, "Database port")
 }
 
 // initConfig reads in config file and ENV variables if set.

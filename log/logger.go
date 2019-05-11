@@ -33,3 +33,11 @@ func Error(v ...interface{}) {
 func Errorf(format string, v ...interface{}) {
 	logrus.Errorf(format, v)
 }
+
+func Fatal(v ...interface{}) {
+	logrus.Fatal(v)
+}
+
+func Fatalf(format string, v ...interface{}) {
+	logrus.Fatalf(format, v)
+}
