@@ -14,8 +14,9 @@ type App interface {
 }
 
 type AppFactory struct {
-	userRepository repositories.ParkingRepository
-	userService *services.ParkingService
+	db *sql.DB
+	parkingRepository repositories.ParkingRepository
+	parkingService *services.ParkingService
 }
 
 func NewAppFactory(cfg *Config) *AppFactory {
@@ -35,11 +36,20 @@ func NewAppFactory(cfg *Config) *AppFactory {
 	userService := services.NewParkingService(userRepository)
 
 	return &AppFactory{
-		userRepository: &userRepository,
-		userService: &userService,
+		db: db,
+		parkingRepository: &userRepository,
+		parkingService: &userService,
 	}
 }
 
 func (f *AppFactory) ParkingService() *services.ParkingService {
-	return f.userService
+	return f.parkingService
+}
+
+func (f *AppFactory) ParkingRepository() repositories.ParkingRepository {
+	return f.parkingRepository
+}
+
+func (f *AppFactory) DataSource() *sql.DB {
+	return f.db
 }

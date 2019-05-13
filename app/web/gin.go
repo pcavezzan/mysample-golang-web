@@ -11,7 +11,7 @@ import (
 func startGin(factory *app.AppFactory, config *app.Config) {
 	r := gin.Default()
 
-	ue := endpoints.ParkingEndpoint{factory.ParkingService()}
+	ue := endpoints.ParkingEndpoint{ParkingService: factory.ParkingService()}
 
 	r.GET("/api/parkings", ue.Users)
 
