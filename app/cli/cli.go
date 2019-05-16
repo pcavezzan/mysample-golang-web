@@ -5,6 +5,22 @@ import (
 	"github.com/pcavezzan/sample-apiserver/log"
 )
 
+const (
+	create_table_parking = `
+CREATE TABLE IF NOT EXISTS parking (
+ id serial PRIMARY KEY,
+ number SMALLINT UNIQUE,
+ owner VARCHAR,
+ car VARCHAR
+);
+`
+	create_sample_parking = `
+INSERT INTO parking (number, owner, car)
+VALUES (29, 'James Bond', 'Aston Martin'),
+(30, 'Foo Bar', 'Porsche 911');
+`
+)
+
 type Command interface {
 	Execute()
 }
@@ -22,14 +38,11 @@ func NewInitCommand(config *app.Config) Command {
 	return cmdImpl{
 		Run: func() {
 			db := factory.DataSource()
-			result, err := db.Exec(`
-CREATE TABLE parking(
- id serial PRIMARY KEY,
- number SMALLINT,
- owner VARCHAR,
- car VARCHAR
-)
-`)
+
+			// Should assemble our statement into one
+			q := create_table_parking + create_sample_parking
+
+			result, err := db.Exec(q)
 			if err != nil {
 				log.Fatal(err)
 			}
